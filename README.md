@@ -7,9 +7,9 @@
 
 4. Authenticate user login to look at their search history and saved links. Can also use text to search description of the item to help you look it up. Crud routes will be delete history and add to history. (This might change later on). Maybe index on the description of the product. Will use Hugging face API/AI and Ebay's Developer API. Demonstrate using the front end of the app.
 
-5. Timeline:
-Week 6: Allow the user to upload an image and a front end page that shows this. Set up project with needed libraries.
-Week 7: Store user information and allow them to delete their history and add search to their history when they make new search
-Week 8: Have the Hugging face API and EBay API working
-Week 9: Continue working with the API and do testing near the end.
+5. Timeline: <br>
+Week 6: Allow the user to upload an image and a front end page that shows this. Set up project with needed libraries. <br>
+Week 7: Store user information and allow them to delete their history and add search to their history when they make new search <br>
+Week 8: Have the Hugging face API and EBay API working <br>
+Week 9: Continue working with the API and do testing near the end. <br>
 Week 10: Showcase project
