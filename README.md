@@ -7,6 +7,27 @@
 
 4. Authenticate user login to look at their search history and saved links. Can also use text to search description of the item to help you look it up. Crud routes will be delete history and add to history. (This might change later on). Maybe index on the description of the product. Will use Hugging face API/AI and Ebay's Developer API. Demonstrate using the front end of the app.
 
+2 Crud routes: <br>
+1. SearchHistory (User's past searches) <br>
+
+    POST /search-history → Add a new search entry <br>
+
+    GET /search-history → Get all search entries for a user <br>
+
+    PUT /search-history/:id → Update a specific search entry (maybe to rename or edit the query) <br>
+
+    DELETE /search-history/:id → Delete a specific search entry <br>
+
+2. SavedLinks (Items the user wants to keep) <br>
+
+    POST /saved-links → Save a new link (like from eBay or Amazon) <br>
+
+    GET /saved-links → Get all saved links for a user <br>
+
+    PUT /saved-links/:id → Update a saved link's title or notes <br>
+
+    DELETE /saved-links/:id → Remove a saved link <br>
+
 5. Timeline: <br>
 Week 6: Allow the user to upload an image and a front end page that shows this. Set up project with needed libraries. <br>
 Week 7: Store user information and allow them to delete their history and add search to their history when they make new search <br>
