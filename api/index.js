@@ -1,31 +1,47 @@
 import express from "express";
 import mongoose from "mongoose";
-import { createServer } from "@vercel/node"; // only needed for full server setup
-import { json } from "body-parser";
+import { json } from "express";
 
-const app = express();
-app.use(json());
-
-// MongoDB connection (runs once)
-mongoose.connect(process.env.MONGODB_URI, {
+// MongoDB setup
+const uri = process.env.MONGODB_URI;
+mongoose.connect(uri, {
   dbName: "test",
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
 
-const Item = mongoose.model("Item", new mongoose.Schema({ name: String }));
+// Middleware example (runs before every request)
+const logMiddleware = (req, res, next) => {
+  console.log(`[${req.method}] ${req.url}`);
+  next();
+};
 
-// Sample route
+// Mongoose model
+const Item =
+  mongoose.models.Item ||
+  mongoose.model(
+    "Item",
+    new mongoose.Schema({
+      name: String,
+    })
+  );
+
+// Create Express app
+const app = express();
+app.use(json()); // Parses JSON body
+app.use(logMiddleware); // Custom middleware
+
+// Routes
 app.get("/", async (req, res) => {
   const items = await Item.find();
-  res.status(200).json({ message: "Items fetched", items });
+  res.status(200).json({ message: "Fetched items", items });
 });
 
 app.post("/", async (req, res) => {
   const { name } = req.body;
   const newItem = await Item.create({ name });
-  res.status(201).json({ message: "Item created", item: newItem });
+  res.status(201).json({ message: "Created item", item: newItem });
 });
 
-// Export the Express app as a handler for Vercel
+// Wrap Express for Vercel
 export default app;
