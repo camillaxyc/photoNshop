@@ -31,12 +31,13 @@ const app = express();
 app.use(json()); // Parses JSON body
 app.use(logMiddleware); // Custom middleware
 
-// Routes
+// get api
 app.get("/", async (req, res) => {
   const items = await Item.find();
   res.status(200).json({ message: "Fetched items", items });
 });
 
+// POST to create item
 app.post("/", async (req, res) => {
   const { name } = req.body;
   const newItem = await Item.create({ name });
