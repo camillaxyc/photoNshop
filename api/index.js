@@ -1,31 +1,31 @@
-const express = require("express");
-const { MongoClient } = require("mongodb");
-const serverless = require("serverless-http");
+import express from "express";
+import mongoose from "mongoose";
+import { createServer } from "@vercel/node"; // only needed for full server setup
+import { json } from "body-parser";
 
 const app = express();
-app.use(express.json());
+app.use(json());
 
-const uri = process.env.MONGODB_URI;
-let cachedClient = null;
-
-async function connectToDatabase() {
-  if (cachedClient) return cachedClient;
-  const client = new MongoClient(uri);
-  await client.connect();
-  cachedClient = client;
-  return client;
-}
-
-app.get("/api", async (req, res) => {
-  try {
-    const client = await connectToDatabase();
-    const db = client.db("test"); // Change 'test' to DB name later
-    const items = await db.collection("your_collection").find().toArray();
-    res.status(200).json(items);
-  } catch (error) {
-    res.status(500).json({ error: "Database connection failed" });
-  }
+// MongoDB connection (runs once)
+mongoose.connect(process.env.MONGODB_URI, {
+  dbName: "test",
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
 });
 
-module.exports = app;
-m;
+const Item = mongoose.model("Item", new mongoose.Schema({ name: String }));
+
+// Sample route
+app.get("/", async (req, res) => {
+  const items = await Item.find();
+  res.status(200).json({ message: "Items fetched", items });
+});
+
+app.post("/", async (req, res) => {
+  const { name } = req.body;
+  const newItem = await Item.create({ name });
+  res.status(201).json({ message: "Item created", item: newItem });
+});
+
+// Export the Express app as a handler for Vercel
+export default app;
