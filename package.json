@@ -4,7 +4,8 @@
   "description": "1. Upload a photo and have AI help you find it on Ebay and maybe Amazon, using their free developer API so you can buy it. You can also use text of description of the item to help you look it up.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
@@ -18,9 +19,11 @@
   },
   "homepage": "https://github.com/camillaxyc/photoNshop#readme",
   "dependencies": {
+    "dotenv": "^16.5.0",
     "express": "^5.1.0",
-    "mongodb": "^6.16.0",
-    "mongoose": "^8.15.0",
-    "serverless-http": "^3.2.0"
+    "mongoose": "^8.15.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
   }
 }
