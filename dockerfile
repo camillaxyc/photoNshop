@@ -1,13 +1,30 @@
-FROM node:18
+# -------- FRONTEND BUILD --------
+    FROM node:18 AS frontend
 
-WORKDIR /app
-
-COPY package*.json ./
-RUN npm install
-
-COPY . .
-
-ENV PORT 8080
-EXPOSE 8080
-
-CMD ["npm", "start"]
+    WORKDIR /app/client
+    
+    COPY client/package*.json ./
+    RUN npm install
+    
+    COPY client ./
+    RUN npm run build
+    
+    # -------- BACKEND BUILD --------
+    FROM node:18 AS backend
+    
+    WORKDIR /app
+    
+    COPY server/package*.json ./server/
+    RUN cd server && npm install
+    
+    COPY server ./server
+    COPY --from=frontend /app/client/dist ./server/public
+    
+    WORKDIR /app/server
+    
+    RUN npm run build
+    
+    EXPOSE 3000
+    
+    CMD ["node", "dist/index.js"]
+    
