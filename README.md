@@ -11,3 +11,5 @@ and JWT_SECRET declared<br>
 <br> Go to the link the client gives you to test out feature
 <br> npm run rest on the server folder to run a simple jest test on the 8 routes
 <br>Wait 3-5 seconds then it will generate all the listings on the bottom
+<br>https://photonshop.fly.dev/
+<br>You can register and login and itll save all your saved items you want to buy

@@ -20,6 +20,7 @@
     
     # Copy backend source code
     COPY server ./
+    RUN npm rebuild bcrypt --build-from-source
     
     # Build backend TypeScript (outputs to dist/)
     RUN npm run build

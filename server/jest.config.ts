@@ -10,6 +10,7 @@ const config: Config = {
   moduleNameMapper: {
     "^(\\.{1,2}/.*)\\.js$": "$1",
   },
+  testPathIgnorePatterns: ["<rootDir>/dist/"],
 };
 
 export default config;

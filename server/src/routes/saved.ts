@@ -1,6 +1,6 @@
 import express from "express";
-import SavedItem from "../models/SavedItem";
-import { requireAuth } from "../middleware/requireAuth";
+import SavedItem from "../models/SavedItem.js";
+import { requireAuth } from "../middleware/requireAuth.js";
 
 const router = express.Router();
 

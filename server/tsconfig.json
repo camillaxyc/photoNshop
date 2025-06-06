@@ -4,6 +4,7 @@
     "module": "ESNext",
     "moduleResolution": "Node",
     "esModuleInterop": true,
+    "lib": ["ES2020", "DOM"],
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
@@ -11,5 +12,5 @@
     "resolveJsonModule": true,
     "outDir": "dist"
   },
-  "include": ["src", "tests"]
+  "include": ["src"]
 }

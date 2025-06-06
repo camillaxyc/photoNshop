@@ -1,10 +1,10 @@
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
-import authRoutes from "../routes/auth";
-import itemRoutes from "../routes/items";
-import savedRoutes from "../routes/saved";
-import searchRoutes from "../routes/search";
+import authRoutes from "../routes/auth.js";
+import itemRoutes from "../routes/items.js";
+import savedRoutes from "../routes/saved.js";
+import searchRoutes from "../routes/search.js";
 
 dotenv.config();
 

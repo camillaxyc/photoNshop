@@ -8,10 +8,10 @@ import multer from "multer";
 import fs from "fs/promises";
 // @ts-ignore
 import fetch from "node-fetch";
-import searchRouter from "./routes/search";
-import authRoutes from "./routes/auth";
-import itemRoutes from "./routes/items";
-import savedRoutes from "./routes/saved";
+import searchRouter from "./routes/search.js";
+import authRoutes from "./routes/auth.js";
+import itemRoutes from "./routes/items.js";
+import savedRoutes from "./routes/saved.js";
 
 dotenv.config();
 
