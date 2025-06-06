@@ -6,9 +6,19 @@ import { fileURLToPath } from "url";
 import dotenv from "dotenv";
 import multer from "multer";
 import fs from "fs/promises";
+// @ts-ignore
 import fetch from "node-fetch";
+import searchRouter from "./routes/search";
+import authRoutes from "./routes/auth";
+import itemRoutes from "./routes/items";
+import savedRoutes from "./routes/saved";
 
 dotenv.config();
+
+const allowedOrigins = [
+  "http://localhost:5173", // local dev frontend
+  "https://photonshop.fly.dev", // deployed frontend
+];
 
 const app = express();
 const PORT = parseInt(process.env.PORT || "3000", 10);
@@ -21,25 +31,36 @@ if (!MONGO_URI) {
   process.exit(1);
 }
 
-// Resolve __dirname for ES Modules
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Middleware
-app.use(cors());
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true,
+  })
+);
 app.use(express.json());
+app.use("/auth", authRoutes);
+app.use("/items", itemRoutes);
+app.use("/saved", savedRoutes);
+app.use("/search", searchRouter);
 
-// Serve frontend from ./public
 app.use(express.static(path.join(__dirname, "../public")));
 
-// Test route
-app.get("/api/hello", (req, res) => {
-  res.json({ message: "Hello from backend API!" });
-});
-
-// Serve React app for all other routes
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../public/index.html"));
+app.get("*", (req, res, next) => {
+  if (req.accepts("html") && !req.path.includes(".")) {
+    res.sendFile(path.join(__dirname, "../public/index.html"));
+  } else {
+    next();
+  }
 });
 
 const upload = multer({ dest: "uploads/" });
@@ -87,7 +108,7 @@ app.post("/upload", upload.single("image"), async (req, res) => {
     res.status(500).json({ error: "Failed to analyze image" });
   }
 });
-// Start server after DB connection
+
 async function startServer() {
   try {
     await mongoose.connect(MONGO_URI!);

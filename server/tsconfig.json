@@ -1,14 +1,15 @@
 {
   "compilerOptions": {
-    "target": "ES2020", // Output modern JS for Node 14+
-    "module": "ES2022", // Use ES modules
-    "moduleResolution": "Node", // Resolve modules like Node.js
-    "outDir": "dist", // Compiled JS output folder
-    "rootDir": "src", // Source TS files location
-    "esModuleInterop": true, // Support default imports from CommonJS modules
-    "forceConsistentCasingInFileNames": true, // File name case sensitivity
-    "strict": true, // Enable all strict type checking options
-    "skipLibCheck": true // Skip type checking of declaration files for faster builds
+    "target": "ES2020",
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "isolatedModules": true,
+    "resolveJsonModule": true,
+    "outDir": "dist"
   },
-  "include": ["src/**/*"] // Include all TS files under src/
+  "include": ["src", "tests"]
 }
